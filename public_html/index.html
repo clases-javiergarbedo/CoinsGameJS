@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="CoinsGame.js"></script>
+        <script>
+            function moveCoin() {
+                var inputPosition = document.getElementById("inputPosition");
+                var inputPositionValue = inputPosition.value;
+
+                var movementValidation = coinsGame.getMovementValidation(inputPositionValue);
+                switch(movementValidation) {
+                    case coinsGame.MOVEMENT_VALIDATION_OK:
+                        var moveResult = coinsGame.moveCoin(inputPositionValue);
+                        if(!moveResult) {
+                            alert("No se puede realizar el movimiento");
+                        }
+                        break;
+                    case coinsGame.MOVEMENT_VALIDATION_OUT_OF_RANGE:
+                        alert("Valor fuera de rango");
+                        break;
+                }
+                divGameboard.innerHTML = coinsGame.getGameboard();
+            }
+        </script>
+    </head>
+    <body>
+
+        <input type="text" id="inputPosition">
+        <input type="button" value="Enviar" onclick="moveCoin();">
+        <div id="divGameboard">Inicio</div>
+        
+        <script>
+            var coinsGame = new CoinsGame();   
+            var divGameboard = document.getElementById("divGameboard");
+            divGameboard.innerHTML = coinsGame.getGameboard();
+        </script>
+    </body>
+</html>
